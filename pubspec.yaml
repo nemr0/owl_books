@@ -1,0 +1,60 @@
+name: owl_books
+description: "A Books App using Gutendex APIs under the hood."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_gen: ^5.10.0
+  flutter_native_splash: ^2.4.6
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^5.0.0
+  flutter_gen_runner: ^5.10.0
+  flutter_launcher_icons: ^0.14.4
+  build_runner: ^2.5.4
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+      - assets/shared/logo-light.png
+      - assets/shared/logo-dark.png
+# Assets Generator
+# dart run build_runner build --delete-conflicting-outputs
+flutter_gen:
+  output: lib/core/generated/
+
+# Splash Screen Generator
+# dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#fffdf1"
+  image: assets/shared/logo-light.png
+  color_dark: "#323328"
+  image_dark: assets/shared/logo-dark.png
+
+# Icon Generator
+# dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/shared/logo-light.png"
+  macos:
+    generate: true
+  desaturate_tinted_to_grayscale_ios: true
+  background_color: "#fffdf1"
