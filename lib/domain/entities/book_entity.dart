@@ -44,6 +44,15 @@ class Book extends Equatable{
     required this.downloadCount,
   });
 
+  static const empty = Book(
+    coverUrl: null,
+    id: 0,
+    title: '',
+    summaries: [],
+    authors: [], translators: [],
+    languages: [], copyright: false, downloadCount: 0,
+  );
+
   @override
   List<Object?> get props =>[
     coverUrl,

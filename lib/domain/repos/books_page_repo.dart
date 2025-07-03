@@ -7,7 +7,7 @@ import '../entities/books_page_entity.dart';
 
 abstract class BooksPageRepository{
   Future<Either<Failure,BooksPage>> getBooksPage({
-    required int page,
+    required int? page,
     String? searchQuery,
   });
 }

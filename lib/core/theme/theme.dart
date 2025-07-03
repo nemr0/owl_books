@@ -22,6 +22,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
+      tertiary: AppColors.light,
     ),
   );
   static final AppTheme _instance = AppTheme._internal();

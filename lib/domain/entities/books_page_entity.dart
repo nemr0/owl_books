@@ -30,11 +30,14 @@ class BooksPage extends Equatable{
     searchQuery,
   ];
 
-  BooksPage copyWith({List<Book> oldBooks = const [],String? searchQuery}) {
+  BooksPage copyWith({BooksPage? oldBooksPage}) {
+    if(oldBooksPage == null || oldBooksPage.searchQuery != searchQuery) {
+      return this;
+    }
     return BooksPage(
       totalCount: totalCount,
       nextPage: nextPage,
-      books: [...oldBooks, ...books],
+      books: [...oldBooksPage.books, ...books],
       searchQuery: searchQuery
     );
   }

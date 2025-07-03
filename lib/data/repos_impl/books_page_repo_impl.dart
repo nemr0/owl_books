@@ -17,17 +17,17 @@ class BooksPageRepoImpl implements BooksPageRepository {
 
   @override
   Future<Either<Failure, BooksPage>> getBooksPage({
-    required int page,
+    required int? page,
     String? searchQuery,
   }) async {
     final res = await _networkService.get(
       path: EndPoints.books,
       queryParameters: {
-        'page': page,
-        if (searchQuery != null && searchQuery.isNotEmpty)
-          'search': searchQuery,
+        if(page!=null) 'page': page,
+        if (searchQuery != null && searchQuery.isNotEmpty)'search': searchQuery,
       },
     );
+    print(res);
     if (res.isLeft()) {
       return Left(res.asLeft);
     }else{
