@@ -12,12 +12,14 @@ class BooksPage extends Equatable{
 
   /// The list of books on the current page.
   final List<Book> books;
-
+  /// An optional search query that may have been used to filter the books.
+  final String? searchQuery;
   /// Creates a [BooksPage] instance with the given properties.
-  const BooksPage({
+  const BooksPage( {
     required this.totalCount,
     required this.nextPage,
     required this.books,
+    this.searchQuery,
   });
 
   @override
@@ -25,5 +27,15 @@ class BooksPage extends Equatable{
     totalCount,
     nextPage,
     books,
+    searchQuery,
   ];
+
+  BooksPage copyWith({List<Book> oldBooks = const [],String? searchQuery}) {
+    return BooksPage(
+      totalCount: totalCount,
+      nextPage: nextPage,
+      books: [...oldBooks, ...books],
+      searchQuery: searchQuery
+    );
+  }
 }

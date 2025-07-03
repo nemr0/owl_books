@@ -30,7 +30,6 @@ linter:
     - avoid_multiple_declarations_per_line
     - camel_case_extensions
     - camel_case_types
-    - lines_longer_than_80_chars
     - unnecessary_async
     - unnecessary_breaks
     - use_if_null_to_convert_nulls_to_bools

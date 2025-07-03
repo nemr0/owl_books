@@ -8,7 +8,7 @@ class ServerFailure implements Failure {
   final int? statusCode;
   final ApiResponse? response;
 
-  ServerFailure({
+  const ServerFailure({
     this.stackTrace,
     this.statusCode,
     this.response,
