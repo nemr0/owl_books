@@ -123,4 +123,5 @@ There are currently no automated tests.
 ## Roadmap
 
 * [ ]  Offline caching
+* [ ]  Search
 
