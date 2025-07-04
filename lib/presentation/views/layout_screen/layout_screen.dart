@@ -12,10 +12,9 @@ class LayoutScreen extends StatelessWidget {
   final int index;
   static const locationToIndex = {
     Routes.home: 0,
-    Routes.saved: 1,
-    Routes.bookDetails: 2
+    Routes.saved: 1
   };
-  _buildNavigationBar(BuildContext context,int index) {
+  Widget _buildNavigationBar(BuildContext context, int index) {
     final isFirstSelected = index == 0;
     return SizedBox(
       height: 100,

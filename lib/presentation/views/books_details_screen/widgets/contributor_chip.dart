@@ -20,10 +20,12 @@ class _ContributorChipState extends State<ContributorChip> {
   void initState() {
     expanded = false;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final RenderBox renderBox = _globalKey.currentContext?.findRenderObject() as RenderBox;
-      setState(() {
-        titleWidth = renderBox.size.width;
-      });
+      final renderObject = _globalKey.currentContext?.findRenderObject();
+      if (renderObject is RenderBox) {
+        setState(() {
+          titleWidth = renderObject.size.width;
+        });
+      }
     });
     super.initState();
   }
