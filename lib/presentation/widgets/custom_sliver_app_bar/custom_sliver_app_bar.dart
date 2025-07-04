@@ -10,15 +10,21 @@ class CustomSliverAppBar extends StatelessWidget {
   const CustomSliverAppBar({super.key,  this.inverted = true});
   final bool inverted;
 
-  getBackgroundColor(ColorScheme colorScheme,bool collapsed) {
-    return inverted ? collapsed? colorScheme.primary :colorScheme.secondary :collapsed?colorScheme.secondary: colorScheme.primary;
+  Color getBackgroundColor(ColorScheme colorScheme, bool collapsed) {
+    if (inverted) {
+      return collapsed ? colorScheme.primary : colorScheme.secondary;
+    }
+    return collapsed ? colorScheme.secondary : colorScheme.primary;
   }
   getLogo() => inverted
       ? Assets.shared.logoLight.image()
       : Assets.shared.logoDark.image();
 
-  getForegroundColor(ColorScheme colorScheme, bool collapsed) {
-    return collapsed ?inverted? colorScheme.onPrimary: colorScheme.primary : inverted?colorScheme.primary: colorScheme.onPrimary;
+  Color getForegroundColor(ColorScheme colorScheme, bool collapsed) {
+    if (collapsed) {
+      return inverted ? colorScheme.onPrimary : colorScheme.primary;
+    }
+    return inverted ? colorScheme.primary : colorScheme.onPrimary;
   }
   @override
   Widget build(BuildContext context) {

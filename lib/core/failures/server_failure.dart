@@ -15,7 +15,8 @@ class ServerFailure implements Failure {
   });
 
   @override
-  List<Object?> get props => [stackTrace, statusCode];
+  @override
+  List<Object?> get props => [stackTrace, statusCode, response];
 
   @override
   bool? get stringify => true;
