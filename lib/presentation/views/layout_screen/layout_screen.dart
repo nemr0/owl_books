@@ -25,9 +25,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return SizedBox(
       height: 100,
       child: Padding(
-        padding: const EdgeInsets.only(right: 25),
+        padding: const EdgeInsets.only(left: 25),
         child: Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.centerLeft,
           child: Container(
             height: 50,
             width: 150,

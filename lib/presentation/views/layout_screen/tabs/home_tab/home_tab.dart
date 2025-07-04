@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,6 +7,9 @@ import '../../../../../core/enums/netwrok_status.dart';
 import '../../../../../domain/entities/books_page_entity.dart';
 import '../../../../managers/get_books_cubit/get_books_cubit.dart';
 import '../../../../widgets/book_page/books_page.dart';
+import '../../../../widgets/error_widgets/error_notifications.dart';
+import '../../../../widgets/error_widgets/network_error_widget.dart';
+import '../../../../widgets/error_widgets/server_error_widget.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -31,16 +36,36 @@ class _HomeTabState extends State<HomeTab> {
     super.dispose();
   }
 
-  edgeListener() {
-    if (controller.offset >= controller.position.maxScrollExtent - 100) {
-      context.read<GetBooksCubit>().getBooksPagePaginated();
+  Timer? _debounce;
+
+  void edgeListener() {
+    if (controller.offset >= controller.position.maxScrollExtent - 400 && _debounce == null) {
+
+      _debounce = Timer(const Duration(milliseconds: 300), () {
+        if (mounted) {
+          _debounce = null;
+          context.read<GetBooksCubit>().getBooksPagePaginated();
+        }
+      });
     }
   }
-
+  Future<void> onRefresh() async {
+    await context.read<GetBooksCubit>().getBooksPageInitial(true);
+  }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetBooksCubit,DataStatus>(builder: (context,state){
-      if(state.isNoInternet || state.isServerError) return const SizedBox();
+    return BlocConsumer<GetBooksCubit,DataStatus>(
+     listener: (context,state){
+       if(state.isPaginatingServerError) {
+         ErrorNotification.instance.showServerErrorToast(context);
+       } else if(state.isPaginatingNoInternet) {
+         ErrorNotification.instance.showNetworkErrorToast(context);
+       }
+
+     },
+     builder: (context,state){
+      if(state.isNoInternet ) return  NetworkErrorWidget(onRefresh: onRefresh,);
+      if(state.isServerError ) return  ServerErrorWidget(onRefresh: onRefresh,);
 
       final booksPage = context.watch<GetBooksCubit>().currentBooksPage;
       return BooksPageScrollView(
@@ -50,10 +75,8 @@ class _HomeTabState extends State<HomeTab> {
         onBookTap: (book) {
           // TODO: Open Book Details Page.
         },
-        booksPage: state.isSuccess ? booksPage ?? BooksPage.empty : BooksPage.empty,
-        onRefresh: () async{
-          await context.read<GetBooksCubit>().getBooksPageInitial(true);
-        },
+        booksPage:  booksPage ?? BooksPage.empty,
+        onRefresh: onRefresh,
         inverted: true,
       );
     });

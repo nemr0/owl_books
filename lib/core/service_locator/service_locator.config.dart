@@ -20,6 +20,8 @@ import 'package:owl_books/domain/usecases/search_books_page_usecase.dart'
     as _i735;
 import 'package:owl_books/presentation/managers/get_books_cubit/get_books_cubit.dart'
     as _i454;
+import 'package:owl_books/presentation/widgets/error_widgets/error_notifications.dart'
+    as _i350;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -28,6 +30,9 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.lazySingleton<_i350.ErrorNotification>(
+      () => _i350.ErrorNotification(),
+    );
     gh.lazySingleton<_i503.NetworkService>(() => _i789.DioNetworkService());
     gh.lazySingleton<_i179.BooksPageRepository>(
       () => _i57.BooksPageRepoImpl(gh<_i503.NetworkService>()),

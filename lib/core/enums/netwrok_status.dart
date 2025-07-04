@@ -5,6 +5,8 @@ enum DataStatus {
   initial,
   loading,
   paginating,
+  paginatingServerError,
+  paginatingNoInternet,
   success,
   noInternet,
   serverError,
@@ -18,13 +20,16 @@ extension DataStatusExtension on DataStatus {
   bool get isPaginating => this == DataStatus.paginating;
   bool get isNoInternet => this == DataStatus.noInternet;
   bool get isServerError => this == DataStatus.serverError;
+  bool get isPaginatingNoInternet => this == DataStatus.paginatingNoInternet;
+  bool get isPaginatingServerError => this == DataStatus.paginatingServerError;
 
-  static DataStatus fromFailure(Failure failure){
+  static DataStatus fromFailure(Failure failure,bool isNotPaginating) {
+
     switch(failure){
       case NetworkFailure():
-        return DataStatus.noInternet;
+        return isNotPaginating ? DataStatus.noInternet : DataStatus.paginatingNoInternet;
       default:
-        return DataStatus.serverError;
+        return isNotPaginating ? DataStatus.serverError : DataStatus.paginatingServerError;
      // fallback status
     }
   }

@@ -20,6 +20,7 @@ class BooksPageRepoImpl implements BooksPageRepository {
     required int? page,
     String? searchQuery,
   }) async {
+    // return Left(NetworkFailure());
     final res = await _networkService.get(
       path: EndPoints.books,
       queryParameters: {

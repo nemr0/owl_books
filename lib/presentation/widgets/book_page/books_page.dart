@@ -29,7 +29,27 @@ class BooksPageScrollView extends StatelessWidget {
   final Future<void> Function()? onRefresh;
   final bool inverted;
   final ScrollController controller;
-
+  Color getContainerColor(ColorScheme colorScheme,bool inverted) {
+    return inverted
+        ? colorScheme.primary
+        : colorScheme.secondary;
+  }
+  Widget getRefreshIndicator(RefreshIndicatorMode mode,ColorScheme colorScheme,TextTheme textTheme,bool inverted) {
+    if(mode == RefreshIndicatorMode.armed ||
+        mode == RefreshIndicatorMode.refresh ||
+        mode == RefreshIndicatorMode.done) {
+      return  CircularProgressIndicator.adaptive(backgroundColor:inverted ? colorScheme.onPrimary : colorScheme.onSecondary ,);
+    } else {
+      return Text(
+        'Pull to refresh',
+        style: textTheme.bodyLarge?.copyWith(
+          color: inverted
+              ? colorScheme.onPrimary
+              : colorScheme.onSecondary,
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final topPadding = context.padding.top;
@@ -40,23 +60,14 @@ class BooksPageScrollView extends StatelessWidget {
         refreshIndicatorExtent: topPadding + 75,
         builder: (_, mode, _, _, _) {
           return Container(
-            color: inverted? context.colorScheme.primary:context.colorScheme.secondary,
+            color: getContainerColor(context.colorScheme, inverted),
             padding: EdgeInsets.only(top:context.padding.top + 10),
             child: Center(
-              child:
-              mode == RefreshIndicatorMode.armed ||
-                  mode == RefreshIndicatorMode.refresh ||
-                  mode == RefreshIndicatorMode.done
-                  ?  CircularProgressIndicator.adaptive(backgroundColor:inverted
-                  ? context.colorScheme.onPrimary
-                  : context.colorScheme.onSecondary ,)
-                  : Text(
-                'Pull to refresh',
-                style: context.textTheme.bodyLarge?.copyWith(
-                  color: inverted
-                      ? context.colorScheme.onPrimary
-                      : context.colorScheme.onSecondary,
-                ),
+              child: getRefreshIndicator(
+                mode,
+                context.colorScheme,
+                context.textTheme,
+                inverted,
               ),
             ),
           );
@@ -64,7 +75,9 @@ class BooksPageScrollView extends StatelessWidget {
         onRefresh: onRefresh,
       ),
         // 1) This adapter sits right under the AppBar…
-        CustomSliverAppBar(inverted: inverted,),
+        CustomSliverAppBar(inverted: inverted,onScrollUp: (){
+          controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+        },),
 
 
         BooksPageGridViewSliver(

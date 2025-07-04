@@ -27,7 +27,7 @@ class GetBooksCubit extends Cubit<DataStatus> {
     emit(isFirst?DataStatus.loading:DataStatus.paginating);
     final result = await _getBooksPageUseCase(currentBooksPage?.nextPage);
     result.fold(
-      (failure) => emit(DataStatusExtension.fromFailure(failure)),
+      (failure) => emit(DataStatusExtension.fromFailure(failure,isFirst)),
       (booksPage) {
         // add the new books to the current page
         currentBooksPage = booksPage.copyWith(oldBooksPage: currentBooksPage);

@@ -79,7 +79,7 @@ class _CoverSkeleton extends StatelessWidget {
 }
 
 class _CoverError extends StatelessWidget {
-  const _CoverError({super.key});
+  const _CoverError();
 
   @override
   Widget build(BuildContext context) {
