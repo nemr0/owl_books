@@ -9,7 +9,8 @@ final router = GoRouter(routes: [
   ShellRoute(
    builder: (_,_,child)=> LayoutScreen(child: child),
       routes: [
-    GoRoute(path: Routes.home,builder: (_, __) => const HomeTab(),
+    GoRoute(
+      path: Routes.home,
       pageBuilder: (context, state) => const NoTransitionPage(child: HomeTab()),
         routes: [
       ///TODO: Add book details route
