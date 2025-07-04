@@ -15,6 +15,16 @@ dependencies:
   flutter_native_splash: ^2.4.6
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1
+  equatable: ^2.0.7
+  dartz: ^0.10.1
+  dio: ^5.8.0+1
+  get_it: ^8.0.3
+  injectable: ^2.5.0
+  go_router: ^16.0.0
+  flutter_bloc: ^9.1.1
+  skeletonizer: ^2.1.0
+  cached_network_image: ^3.4.1
+  toastification: ^3.0.3
 
 
 
@@ -27,14 +37,16 @@ dev_dependencies:
   flutter_gen_runner: ^5.10.0
   flutter_launcher_icons: ^0.14.4
   build_runner: ^2.5.4
+  injectable_generator: ^2.7.0
 
 
 flutter:
   uses-material-design: true
 
   assets:
-      - assets/shared/logo-light.png
-      - assets/shared/logo-dark.png
+      - assets/shared/logo-light.webp
+      - assets/shared/logo-dark.webp
+      - assets/shared/no_cover_available.webp
 # Assets Generator
 # dart run build_runner build --delete-conflicting-outputs
 flutter_gen:
@@ -44,16 +56,16 @@ flutter_gen:
 # dart run flutter_native_splash:create
 flutter_native_splash:
   color: "#fffdf1"
-  image: assets/shared/logo-light.png
+  image: assets/shared/logo-light.webp
   color_dark: "#323328"
-  image_dark: assets/shared/logo-dark.png
+  image_dark: assets/shared/logo-dark.webp
 
 # Icon Generator
 # dart run flutter_launcher_icons
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/shared/logo-light.png"
+  image_path: "assets/shared/logo-light.webp"
   macos:
     generate: true
   desaturate_tinted_to_grayscale_ios: true
