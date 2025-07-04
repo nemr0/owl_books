@@ -32,7 +32,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             height: 50,
             width: 150,
             decoration: BoxDecoration(
-              color: context.theme.primaryColor.withAlpha(190),
+              color: context.theme.primaryColor.withAlpha(250),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Row(
@@ -42,10 +42,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   padding: EdgeInsets.zero,
                   child:  Icon(isFirstSelected ? CupertinoIcons.house_fill : CupertinoIcons.house,color:isFirstSelected? context.colorScheme.secondary : context.colorScheme.tertiary,size: 27,),
                   onPressed: () {
-                    setState(() {
-                      selectedIndex = 0;
-                      context.go(Routes.home);
-                    });
+                    selectedIndex = 0;
+                    context.go(Routes.home);
                   },
                 ),
                 VerticalDivider(
@@ -55,13 +53,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 ),
                 CupertinoButton(
                   padding: EdgeInsets.zero,
-
                   child:  Icon(isFirstSelected ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,color:isFirstSelected? context.colorScheme.tertiary : context.colorScheme.secondary,size: 27,),
                   onPressed: () {
-                    setState(() {
-                      selectedIndex = 1;
-                      context.go(Routes.saved);
-                    });
+                    selectedIndex = 1;
+                    context.go(Routes.saved);
                   },
                 ),
               ],
@@ -74,6 +69,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       body: widget.child,
       bottomNavigationBar:_buildNavigationBar(selectedIndex) ,
     );

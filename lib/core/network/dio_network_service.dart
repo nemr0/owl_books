@@ -47,7 +47,7 @@ class DioNetworkService implements NetworkService {
           return Left(
             ServerFailure(
               statusCode: e.response?.statusCode,
-              response: ApiResponse.fromDio(e.response!),
+              response: ApiResponse.fromDio(e.response),
               stackTrace: e.stackTrace,
             ),
           );

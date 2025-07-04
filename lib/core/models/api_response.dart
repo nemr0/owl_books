@@ -8,11 +8,11 @@ class ApiResponse extends Equatable{
 
   const ApiResponse({this.data, this.error, this.statusCode});
 
-  factory ApiResponse.fromDio(Response response) {
+  factory ApiResponse.fromDio(Response? response) {
     return ApiResponse(
-      data: response.data,
-      error: response.statusMessage,
-      statusCode: response.statusCode,
+      data: response?.data,
+      error: response?.statusMessage,
+      statusCode: response?.statusCode,
     );
   }
   @override

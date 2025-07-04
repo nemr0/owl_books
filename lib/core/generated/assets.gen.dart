@@ -12,16 +12,20 @@ import 'package:flutter/widgets.dart';
 class $AssetsSharedGen {
   const $AssetsSharedGen();
 
-  /// File path: assets/shared/logo-dark.png
+  /// File path: assets/shared/logo-dark.webp
   AssetGenImage get logoDark =>
-      const AssetGenImage('assets/shared/logo-dark.png');
+      const AssetGenImage('assets/shared/logo-dark.webp');
 
-  /// File path: assets/shared/logo-light.png
+  /// File path: assets/shared/logo-light.webp
   AssetGenImage get logoLight =>
-      const AssetGenImage('assets/shared/logo-light.png');
+      const AssetGenImage('assets/shared/logo-light.webp');
+
+  /// File path: assets/shared/no_cover_available.webp
+  AssetGenImage get noCoverAvailable =>
+      const AssetGenImage('assets/shared/no_cover_available.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logoDark, logoLight];
+  List<AssetGenImage> get values => [logoDark, logoLight, noCoverAvailable];
 }
 
 class Assets {

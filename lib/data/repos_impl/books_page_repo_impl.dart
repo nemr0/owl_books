@@ -27,7 +27,6 @@ class BooksPageRepoImpl implements BooksPageRepository {
         if (searchQuery != null && searchQuery.isNotEmpty)'search': searchQuery,
       },
     );
-    print(res);
     if (res.isLeft()) {
       return Left(res.asLeft);
     }else{

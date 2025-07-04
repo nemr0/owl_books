@@ -29,7 +29,12 @@ class BooksPage extends Equatable{
     books,
     searchQuery,
   ];
-
+  static const BooksPage empty = BooksPage(
+    totalCount: 0,
+    nextPage: null,
+    books: [],
+    searchQuery: null,
+  );
   BooksPage copyWith({BooksPage? oldBooksPage}) {
     if(oldBooksPage == null || oldBooksPage.searchQuery != searchQuery) {
       return this;

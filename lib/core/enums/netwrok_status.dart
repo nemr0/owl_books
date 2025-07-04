@@ -14,7 +14,8 @@ enum DataStatus {
 extension DataStatusExtension on DataStatus {
   bool get isInitial => this == DataStatus.initial;
   bool get isLoading => this == DataStatus.loading;
-  bool get isSuccess => this == DataStatus.success;
+  bool get isSuccess => this == DataStatus.success || this == DataStatus.paginating;
+  bool get isPaginating => this == DataStatus.paginating;
   bool get isNoInternet => this == DataStatus.noInternet;
   bool get isServerError => this == DataStatus.serverError;
 

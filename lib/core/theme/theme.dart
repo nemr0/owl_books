@@ -17,7 +17,9 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.light,
     textTheme: textTheme,
     // fontFamily: "Gilroy",
-
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent
+    ),
     platform: TargetPlatform.iOS,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: AppColors.primary,

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart' show BuildContext;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,18 +11,19 @@ class GetBooksCubit extends Cubit<DataStatus> {
   GetBooksCubit(this._getBooksPageUseCase) : super(DataStatus.initial);
   final GetBooksPageUseCase _getBooksPageUseCase;
   static GetBooksCubit get factory => ServiceLocator.get<GetBooksCubit>();
-  static GetBooksCubit get(BuildContext context)=>BlocProvider.of<GetBooksCubit>(context);
   BooksPage? currentBooksPage;
   /// This method is used to get the initial books page and refresh states.
   Future<void> getBooksPageInitial([bool force = false]) async{
-    if(currentBooksPage != null && force == false)return;
-    await getBooksPagePaginated();
+    if(currentBooksPage != null && !force)return;
+    await getBooksPagePaginated(true);
   }
+
   /// called on pagination, it will get the next page of books.
   /// If [isFirst] is true, it will emit loading state, otherwise it will emit paginating state.
   /// It will also update the currentBooksPage with the new page.
   /// called from [getBooksPageInitial] on First load and on Refresh.
  Future<void> getBooksPagePaginated([bool isFirst = false]) async {
+    if(state == DataStatus.loading || state == DataStatus.paginating) return;
     emit(isFirst?DataStatus.loading:DataStatus.paginating);
     final result = await _getBooksPageUseCase(currentBooksPage?.nextPage);
     result.fold(
