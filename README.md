@@ -1,5 +1,7 @@
 # Owl Books
 
+![Owl Books](assets/shared/logo-dark.webp)
+
 _A Reading app_
 
 ---
@@ -20,12 +22,10 @@ Infinite scrolling, powerful search, and detailed book pages (with authors, tran
 
 ## Screenshots
 
-*(Replace these with your actual assets once you’ve added them to the repo.)*
-
-![Home Screen](assets/screenshots/home.png)  
-![Search Screen](assets/screenshots/search.png)  
-![Book Details](assets/screenshots/book_details.png)  
-![Golden Plate](assets/screenshots/golden_plate.png)
+![Home Screen](screenshots/home_screen.png)  
+![Home Screen Scrolled](screenshots/home_screen_scrolled.png)  
+![Book Details Screen](/screenshots/book_details_screen.png)  
+![Book Details Screen Scrolled](screenshots/book_details_screen_scrolled.png)
 
 ## Tech Stack & Architecture
 
