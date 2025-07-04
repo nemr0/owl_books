@@ -20,7 +20,7 @@ class SliverBookDetailsHeader extends StatelessWidget {
         final collapsed = constraints.scrollOffset > 280;
 
         return SliverAppBar(
-          expandedHeight: 400,
+          expandedHeight: 420,
           pinned: true,
           surfaceTintColor: Colors.transparent,
 
@@ -29,7 +29,8 @@ class SliverBookDetailsHeader extends StatelessWidget {
             style: context.textTheme.labelMedium?.copyWith(
               color: collapsed? context.colorScheme.surface:context.colorScheme.onPrimary,
             ),
-            maxLines: 2,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           backgroundColor: collapsed? context.colorScheme.secondary:Colors.transparent,
           leading:  CupertinoButton(
@@ -84,7 +85,8 @@ class SliverBookDetailsHeader extends StatelessWidget {
                               style: context.textTheme.displayMedium?.copyWith(
                                 color: context.colorScheme.onPrimary
                               ),
-                              maxLines: 2,),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,),
                           ),
                         ),
                       )
