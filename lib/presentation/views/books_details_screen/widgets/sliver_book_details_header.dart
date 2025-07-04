@@ -78,7 +78,7 @@ class SliverBookDetailsHeader extends StatelessWidget {
                         width: context.width,
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 100.0,vertical: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 12),
                             child: Text(
                               book.title,
                               style: context.textTheme.displayMedium?.copyWith(
