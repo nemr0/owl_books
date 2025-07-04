@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/context_extension.dart';
 import '../../../domain/entities/book_entity.dart';
 import 'widgets/sliver_book_details_header.dart';
-import 'widgets/contributor_chip.dart';
 import 'widgets/sliver_book_summaries.dart';
 import 'widgets/sliver_list_contributors.dart';
 
@@ -19,6 +16,7 @@ class BooksDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.colorScheme.primary,
       body: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverBookDetailsHeader(book: book),
 

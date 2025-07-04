@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/extensions/context_extension.dart';
 import '../../../../domain/entities/contributor_entity.dart';
 import 'contributor_chip.dart';
 import 'section_title.dart';

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -12,14 +11,13 @@ class BookCard extends StatefulWidget {
     super.key,
     this.onBookTap,
     required this.book,
-    this.loading = false,
-    this.inverted = true,
+    this.loading = false,  this.boxFit = BoxFit.contain,
   });
 
   final OnBookTap? onBookTap;
   final Book book;
   final bool loading;
-  final bool inverted;
+  final BoxFit boxFit;
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -57,17 +55,11 @@ class _BookCardState extends State<BookCard> {
             child: Container(
               decoration: ShapeDecoration(
                 color:
-                (widget.inverted
-                    ? context.colorScheme.secondary
-                    : context.colorScheme.primary)
-                    .withAlpha(50),
-                shape: RoundedSuperellipseBorder(
+                 context.colorScheme.secondary.withAlpha(50),
+                shape: RoundedRectangleBorder(
                   side: BorderSide(
                     color:
-                    (widget.inverted
-                        ? context.colorScheme.primary
-                        : context.colorScheme.secondary)
-                        .withAlpha(150),
+                    context.colorScheme.primary.withAlpha(150),
                     width: 1.0,
                   ),
                   borderRadius: BorderRadius.circular(10),
@@ -75,7 +67,7 @@ class _BookCardState extends State<BookCard> {
               ),
 
               child: ImageFromNetwork(
-                widget.book.coverUrl, loading: widget.loading,),
+                widget.book.coverUrl, loading: widget.loading,boxFit: widget.boxFit,),
             ),
           ),
         ),

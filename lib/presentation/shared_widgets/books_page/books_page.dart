@@ -52,7 +52,7 @@ class BooksPageScrollView extends StatelessWidget {
         CupertinoSliverRefreshControl(
         refreshTriggerPullDistance: topPadding + 75,
         refreshIndicatorExtent: topPadding + 75,
-        builder: (_, mode, _, _, _) {
+        builder: (_, mode, __, ___, ____) {
           return Container(
             color: context.colorScheme.primary,
             padding: EdgeInsets.only(top:context.padding.top + 10),

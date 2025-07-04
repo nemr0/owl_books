@@ -4,23 +4,18 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/router/routes.dart';
+import 'tabs/home_tab/home_tab.dart';
+import 'tabs/saved_tab/saved_tab.dart';
 
-class LayoutScreen extends StatefulWidget {
-  const LayoutScreen({super.key, required this.child});
-  final Widget child;
-
-  @override
-  State<LayoutScreen> createState() => _LayoutScreenState();
-}
-
-class _LayoutScreenState extends State<LayoutScreen> {
-  late int selectedIndex;
-  @override
-  void initState() {
-    selectedIndex = 0;
-     super.initState();
-  }
-  _buildNavigationBar(int index) {
+class LayoutScreen extends StatelessWidget {
+  const LayoutScreen({super.key, required this.index});
+  final int index;
+  static const locationToIndex = {
+    Routes.home: 0,
+    Routes.saved: 1,
+    Routes.bookDetails: 2
+  };
+  _buildNavigationBar(BuildContext context,int index) {
     final isFirstSelected = index == 0;
     return SizedBox(
       height: 100,
@@ -40,9 +35,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
               children: [
                 CupertinoButton(
                   padding: EdgeInsets.zero,
-                  child:  Icon(isFirstSelected ? CupertinoIcons.house_fill : CupertinoIcons.house,color:isFirstSelected? context.colorScheme.secondary : context.colorScheme.tertiary,size: 27,),
+                  child: Icon(
+                    isFirstSelected
+                        ? CupertinoIcons.house_fill
+                        : CupertinoIcons.house,
+                    color: isFirstSelected
+                        ? context.colorScheme.secondary
+                        : context.colorScheme.tertiary,
+                    size: 27,
+                  ),
                   onPressed: () {
-                    selectedIndex = 0;
                     context.go(Routes.home);
                   },
                 ),
@@ -53,9 +55,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 ),
                 CupertinoButton(
                   padding: EdgeInsets.zero,
-                  child:  Icon(isFirstSelected ? CupertinoIcons.bookmark : CupertinoIcons.bookmark_fill,color:isFirstSelected? context.colorScheme.tertiary : context.colorScheme.secondary,size: 27,),
+                  child: Icon(
+                    isFirstSelected
+                        ? CupertinoIcons.bookmark
+                        : CupertinoIcons.bookmark_fill,
+                    color: isFirstSelected
+                        ? context.colorScheme.tertiary
+                        : context.colorScheme.secondary,
+                    size: 27,
+                  ),
                   onPressed: () {
-                    selectedIndex = 1;
                     context.go(Routes.saved);
                   },
                 ),
@@ -66,13 +75,20 @@ class _LayoutScreenState extends State<LayoutScreen> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
-      body: widget.child,
-      bottomNavigationBar:_buildNavigationBar(selectedIndex) ,
+      body: IndexedStack(
+        index: index,
+        children: [
+          const HomeTab(),
+          const SavedTab(),
+        ],
+      ),
+      bottomNavigationBar: _buildNavigationBar(context,index),
     );
   }
 }

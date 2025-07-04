@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart' show CupertinoButton, CupertinoIcons;
+import 'package:flutter/cupertino.dart' show CupertinoButton, CupertinoButtonSize, CupertinoIcons;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
@@ -33,11 +33,30 @@ class SliverBookDetailsHeader extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           backgroundColor: collapsed? context.colorScheme.secondary:Colors.transparent,
-          leading:  CupertinoButton(
-            onPressed: () => context.pop(),
-            child: Icon(
-              CupertinoIcons.clear,
-              color: collapsed? context.colorScheme.surface:context.colorScheme.onPrimary,
+          leading:  Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: collapsed? Colors.transparent:context.colorScheme.surface,
+                    shape: BoxShape.circle,
+                  ),
+                  child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    sizeStyle: CupertinoButtonSize.medium,
+                    onPressed: () => context.pop(),
+                    child: Icon(
+                      CupertinoIcons.clear,
+                      color: collapsed? context.colorScheme.surface:context.colorScheme.onPrimary,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           flexibleSpace: FlexibleSpaceBar(
@@ -74,7 +93,7 @@ class SliverBookDetailsHeader extends StatelessWidget {
                     children: [
                       SizedBox(
                           height: 250,width: 166,
-                          child: BookCard(book: book)),
+                          child: BookCard(book: book,)),
                       SizedBox(
                         width: context.width,
                         child: Center(

@@ -27,7 +27,7 @@ class ImageFromNetwork extends StatelessWidget {
           return CachedNetworkImage(
             imageUrl: imageUrl ?? '',
             fit: boxFit,
-            placeholder: (_, _) => const _CoverSkeleton(),
+            placeholder: (_, __) => const _CoverSkeleton(),
             errorWidget: (_, e, s) {
               return _CoverError(errorText);
               },
