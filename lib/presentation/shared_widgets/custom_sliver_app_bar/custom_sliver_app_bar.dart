@@ -7,24 +7,17 @@ import '../../../core/extensions/context_extension.dart';
 import '../../../core/generated/assets.gen.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
-  const CustomSliverAppBar({super.key,  this.inverted = true, required this.onScrollUp});
-  final bool inverted;
+  const CustomSliverAppBar({super.key, required this.onScrollUp});
   final VoidCallback onScrollUp;
   Color getBackgroundColor(ColorScheme colorScheme, bool collapsed) {
-    if (inverted) {
+
       return collapsed ? colorScheme.primary : colorScheme.secondary;
-    }
-    return collapsed ? colorScheme.secondary : colorScheme.primary;
+
   }
-  getLogo() => inverted
-      ? Assets.shared.logoLight.image()
-      : Assets.shared.logoDark.image();
+  getLogo() =>Assets.shared.logoLight.image();
 
   Color getForegroundColor(ColorScheme colorScheme, bool collapsed) {
-    if (collapsed) {
-      return inverted ? colorScheme.onPrimary : colorScheme.primary;
-    }
-    return inverted ? colorScheme.primary : colorScheme.onPrimary;
+    return collapsed ? colorScheme.onPrimary : colorScheme.primary;
   }
   @override
   Widget build(BuildContext context) {
@@ -37,6 +30,7 @@ class CustomSliverAppBar extends StatelessWidget {
             stretch: false,
             expandedHeight: 350,
             backgroundColor: getBackgroundColor(context.colorScheme,collapsed),
+            surfaceTintColor: Colors.transparent,
 
             actions: [
               CupertinoButton(

@@ -12,6 +12,6 @@ extension ContextExtension on BuildContext {
  ShimmerEffect get shimmerEffect => ShimmerEffect(
   baseColor: colorScheme.secondary.withAlpha(120),
   highlightColor: colorScheme.onSecondaryContainer,
-  duration: const Duration(seconds: 2),
+  duration: const Duration(milliseconds: 1500),
  );
 }

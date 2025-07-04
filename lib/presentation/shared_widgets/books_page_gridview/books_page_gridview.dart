@@ -99,11 +99,11 @@ class BooksPageGridViewSliver extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
           (_, int index) {
             if (index >= books.length) {
-              return BookCard(coverImageUrl: Book.empty.coverUrl,
+              return BookCard(book: Book.empty,
                 loading: paginating || loading,
               );
             }
-            return BookCard(coverImageUrl: books[index].coverUrl,loading: loading,);
+            return BookCard(book: books[index],loading: loading,onBookTap: onBookTap,);
           },
           childCount: getCurrentChildCount(books.length, paginating),
         ),
