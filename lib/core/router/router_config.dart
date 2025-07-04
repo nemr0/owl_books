@@ -14,7 +14,8 @@ final router = GoRouter(routes: [
         routes: [
       ///TODO: Add book details route
     ]),
-    GoRoute(path: Routes.saved,builder: (_, __) => const SavedTab(),
+    GoRoute(
+      path: Routes.saved,
       pageBuilder: (context, state) => const NoTransitionPage(child: SavedTab()),
 
     ),
