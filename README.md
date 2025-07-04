@@ -1,10 +1,10 @@
 # Owl Books
-
-![Owl Books](assets/shared/logo-dark.webp)
-
 _A Reading app_
 
 ---
+![Owl Books](assets/shared/logo-dark.webp)
+
+
 
 ## About
 
