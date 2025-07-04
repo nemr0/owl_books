@@ -20,7 +20,7 @@ import 'package:owl_books/domain/usecases/search_books_page_usecase.dart'
     as _i735;
 import 'package:owl_books/presentation/managers/get_books_cubit/get_books_cubit.dart'
     as _i454;
-import 'package:owl_books/presentation/widgets/error_widgets/error_notifications.dart'
+import 'package:owl_books/presentation/shared_widgets/error_widgets/error_notifications.dart'
     as _i350;
 
 extension GetItInjectableX on _i174.GetIt {

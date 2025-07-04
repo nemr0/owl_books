@@ -25,6 +25,7 @@ class AppTheme {
       primary: AppColors.primary,
       secondary: AppColors.secondary,
       tertiary: AppColors.light,
+      surface: AppColors.dark,
     ),
   );
   static final AppTheme _instance = AppTheme._internal();

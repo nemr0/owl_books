@@ -17,8 +17,7 @@ class BooksPageScrollView extends StatelessWidget {
     this.onBookTap,
     this.booksPage = BooksPage.empty,
     this.showSearchButton = true,
-    this.onRefresh,
-    this.inverted = true, required this.controller,
+    this.onRefresh, required this.controller,
   });
 
   final bool loading;
@@ -27,25 +26,18 @@ class BooksPageScrollView extends StatelessWidget {
   final OnBookTap? onBookTap;
   final BooksPage booksPage;
   final Future<void> Function()? onRefresh;
-  final bool inverted;
   final ScrollController controller;
-  Color getContainerColor(ColorScheme colorScheme,bool inverted) {
-    return inverted
-        ? colorScheme.primary
-        : colorScheme.secondary;
-  }
-  Widget getRefreshIndicator(RefreshIndicatorMode mode,ColorScheme colorScheme,TextTheme textTheme,bool inverted) {
+
+  Widget getRefreshIndicator(RefreshIndicatorMode mode,ColorScheme colorScheme,TextTheme textTheme) {
     if(mode == RefreshIndicatorMode.armed ||
         mode == RefreshIndicatorMode.refresh ||
         mode == RefreshIndicatorMode.done) {
-      return  CircularProgressIndicator.adaptive(backgroundColor:inverted ? colorScheme.onPrimary : colorScheme.onSecondary ,);
+      return  CircularProgressIndicator.adaptive(backgroundColor:colorScheme.onPrimary);
     } else {
       return Text(
         'Pull to refresh',
         style: textTheme.bodyLarge?.copyWith(
-          color: inverted
-              ? colorScheme.onPrimary
-              : colorScheme.onSecondary,
+          color:  colorScheme.onPrimary,
         ),
       );
     }
@@ -55,19 +47,20 @@ class BooksPageScrollView extends StatelessWidget {
     final topPadding = context.padding.top;
     return CustomScrollView(
       controller: controller,
-      slivers: [CupertinoSliverRefreshControl(
+      slivers: [
+
+        CupertinoSliverRefreshControl(
         refreshTriggerPullDistance: topPadding + 75,
         refreshIndicatorExtent: topPadding + 75,
         builder: (_, mode, _, _, _) {
           return Container(
-            color: getContainerColor(context.colorScheme, inverted),
+            color: context.colorScheme.primary,
             padding: EdgeInsets.only(top:context.padding.top + 10),
             child: Center(
               child: getRefreshIndicator(
                 mode,
                 context.colorScheme,
                 context.textTheme,
-                inverted,
               ),
             ),
           );
@@ -75,7 +68,7 @@ class BooksPageScrollView extends StatelessWidget {
         onRefresh: onRefresh,
       ),
         // 1) This adapter sits right under the AppBar…
-        CustomSliverAppBar(inverted: inverted,onScrollUp: (){
+        CustomSliverAppBar(onScrollUp: (){
           controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
         },),
 

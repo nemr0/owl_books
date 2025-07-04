@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/enums/netwrok_status.dart';
+import '../../../../../core/router/routes.dart';
 import '../../../../../domain/entities/books_page_entity.dart';
 import '../../../../managers/get_books_cubit/get_books_cubit.dart';
-import '../../../../widgets/book_page/books_page.dart';
-import '../../../../widgets/error_widgets/error_notifications.dart';
-import '../../../../widgets/error_widgets/network_error_widget.dart';
-import '../../../../widgets/error_widgets/server_error_widget.dart';
+import '../../../../shared_widgets/books_page/books_page.dart';
+import '../../../../shared_widgets/error_widgets/error_notifications.dart';
+import '../../../../shared_widgets/error_widgets/network_error_widget.dart';
+import '../../../../shared_widgets/error_widgets/server_error_widget.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -73,11 +75,10 @@ class _HomeTabState extends State<HomeTab> {
         loading: state.isLoading || state.isInitial,
         paginating: state.isPaginating,
         onBookTap: (book) {
-          // TODO: Open Book Details Page.
+          context.push(Routes.bookDetails,extra: book);
         },
         booksPage:  booksPage ?? BooksPage.empty,
         onRefresh: onRefresh,
-        inverted: true,
       );
     });
   }
