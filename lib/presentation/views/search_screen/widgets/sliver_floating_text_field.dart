@@ -49,11 +49,13 @@ class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
     return BlocListener<SearchBooksCubit,DataStatus>(
-      listenWhen: (_,state)=>state.isInitial,
+      listenWhen: (_,state)=>state.isInitial || state.isSuccess,
       listener: (BuildContext context, state) {
         if(state.isInitial){
-          if (_debounce?.isActive ?? false) _debounce!.cancel();
+          _debounce?.cancel();
           controller.clear();
+        } else if(state.isSuccess && controller.text.isEmpty){
+          context.read<SearchBooksCubit>().clear();
         }
       },
       child: SliverLayoutBuilder(builder: (context, constraints) {
