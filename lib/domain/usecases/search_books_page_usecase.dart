@@ -25,7 +25,7 @@ class SearchBooksPageUseCase extends UseCase<BooksPage?, SearchBooksPageParamete
 }
 
 class SearchBooksPageParameters extends Equatable {
-  final int page;
+  final int? page;
   final String? searchQuery;
   final bool cancelOnly;
   const SearchBooksPageParameters({required this.page, this.searchQuery,required this.cancelOnly, });

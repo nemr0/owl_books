@@ -71,9 +71,10 @@ class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
               child: TextFormField(
                 controller: controller,
                 autofocus: true,
-                onChanged: (value) {
+                onChanged: (value) async {
+                   await context.read<SearchBooksCubit>().cancel();
                   if (_debounce?.isActive ?? false) _debounce!.cancel();
-                  _debounce = Timer(const Duration(milliseconds: 500), () {
+                  _debounce = Timer(const Duration(milliseconds: 700), () {
                     final cubit = context.read<SearchBooksCubit>();
                     if (value.isNotEmpty) {
                       cubit.searchBooks(value);

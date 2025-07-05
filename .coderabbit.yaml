@@ -32,6 +32,7 @@ path_filters:
   - "lib/**"
   - "pubspec.yaml"
   - "Makefile"
+  - "README.md"
 
 chat:
   auto_reply: true

@@ -69,6 +69,7 @@ lib/
 - `flutter_bloc` (Cubit)
 - `cached_network_image`
 - `dio`
+- `pretty_dio_logger`
 - `go_router`
 - `skeletonizer`
 - `google_fonts`
@@ -115,6 +116,7 @@ There are currently no automated tests.
 * **Error Handling**
 
     * **Network errors**: show a retry option
+    * **Cancelled errors**: differs from a feature to another.
     * **Server & other errors**: display a generic “Server error” message
 * **Summary**: always show at least 3 lines
 * **Contributors**: translators appear alongside authors
@@ -123,5 +125,5 @@ There are currently no automated tests.
 ## Roadmap
 
 * [ ]  Offline caching
-* [ ]  Search
+* [x]  Search
 

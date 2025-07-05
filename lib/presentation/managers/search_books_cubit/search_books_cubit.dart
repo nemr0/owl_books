@@ -13,41 +13,45 @@ class SearchBooksCubit extends Cubit<DataStatus> {
   static SearchBooksCubit get factory => ServiceLocator.get<SearchBooksCubit>();
 
   final SearchBooksPageUseCase _searchBooksPageUseCase;
+  /// current
   BooksPage? currentBooksPage;
-
-  clear() async {
-   await _searchBooksPageUseCase(
-      SearchBooksPageParameters(
-          page: (currentBooksPage?.nextPage ?? 2) - 1,
-          cancelOnly: true,
-          searchQuery: currentBooksPage?.searchQuery),
+  Future<void> cancel() async {
+    await _searchBooksPageUseCase(
+    SearchBooksPageParameters(
+        page: (currentBooksPage?.nextPage ?? 2) - 1,
+        cancelOnly: true,
+        searchQuery: currentBooksPage?.searchQuery),
     );
+  }
+  /// on user clear text field.
+  void clear() async {
+    await cancel();
     currentBooksPage = null;
     emit(DataStatus.initial);
   }
-
-  paginate() async {
+  /// paginate already searched books.
+  Future<void> paginate() async {
     if (currentBooksPage == null || currentBooksPage!.nextPage == null) return;
     if (currentBooksPage?.searchQuery != null) {
       await searchBooks(currentBooksPage!.searchQuery!, true);
     }
   }
 
-  searchBooks(String query, [bool paginate = false]) async {
+  /// search for a [query]
+  Future<void> searchBooks(String query, [bool paginate = false]) async {
     if (state == DataStatus.loading || state == DataStatus.paginating) return;
     emit(paginate ? DataStatus.paginating : DataStatus.loading);
     if (currentBooksPage != null && currentBooksPage!.searchQuery != query) {
       currentBooksPage = null;
     }
     final result = await _searchBooksPageUseCase(SearchBooksPageParameters(
-      page: currentBooksPage?.nextPage ?? 1,
+      page: currentBooksPage?.nextPage,
       searchQuery: query,
       cancelOnly: false,
     ));
     result.fold(
       (failure) => emit(DataStatusExtension.fromFailure(failure, !paginate)),
       (booksPage) {
-        print('booksPage: $booksPage');
         currentBooksPage = booksPage?.copyWith(oldBooksPage: currentBooksPage);
         return emit(DataStatus.success);
       },

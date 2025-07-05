@@ -22,7 +22,7 @@ class DioNetworkService implements NetworkService {
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
     ),
-  )..interceptors.add(PrettyDioLogger(requestBody: true));
+  )..interceptors.add(PrettyDioLogger(requestBody: true,responseBody: false));
   final Map<String,CancelToken> _cancelTokens = {};
   _addCancelKey(String? key) {
     if(key == null) return;
@@ -45,7 +45,7 @@ class DioNetworkService implements NetworkService {
   }) async {
     try {
       _addCancelKey(cancelKey);
-      final res = await _dio.get(path, queryParameters: queryParameters);
+      final res = await _dio.get(path, queryParameters: queryParameters,cancelToken: _cancelTokens[cancelKey]);
       _removeCancelKey(cancelKey);
       if (res.statusCode == 200) {
         return Right(ApiResponse.fromDio(res));

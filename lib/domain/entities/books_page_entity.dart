@@ -39,7 +39,7 @@ class BooksPage extends Equatable{
 
     return BooksPage(
       totalCount: totalCount,
-      nextPage: nextPage ?? nextPage,
+        nextPage: nextPage ?? this.nextPage,
       books: [...oldBooksPage?.books ?? [], ...books],
       searchQuery: searchQuery
     );
