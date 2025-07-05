@@ -15,22 +15,22 @@ class GetBooksCubit extends Cubit<DataStatus> {
   /// This method is used to get the initial books page and refresh states.
   Future<void> getBooksPageInitial([bool force = false]) async{
     if(currentBooksPage != null && !force)return;
-    await getBooksPagePaginated(true);
+    await getBooksPagePaginated(false);
   }
 
   /// called on pagination, it will get the next page of books.
   /// If [isFirst] is true, it will emit loading state, otherwise it will emit paginating state.
   /// It will also update the currentBooksPage with the new page.
   /// called from [getBooksPageInitial] on First load and on Refresh.
- Future<void> getBooksPagePaginated([bool isFirst = false]) async {
+ Future<void> getBooksPagePaginated([bool paginate = false]) async {
     if(state == DataStatus.loading || state == DataStatus.paginating) return;
-    emit(isFirst?DataStatus.loading:DataStatus.paginating);
+    emit(paginate?DataStatus.paginating:DataStatus.loading);
     final result = await _getBooksPageUseCase(currentBooksPage?.nextPage);
     result.fold(
-      (failure) => emit(DataStatusExtension.fromFailure(failure,isFirst)),
+      (failure) => emit(DataStatusExtension.fromFailure(failure,!paginate)),
       (booksPage) {
         // add the new books to the current page
-        currentBooksPage = booksPage.copyWith(oldBooksPage: currentBooksPage);
+        currentBooksPage = booksPage?.copyWith(oldBooksPage: currentBooksPage);
         emit(DataStatus.success);
       },
     );

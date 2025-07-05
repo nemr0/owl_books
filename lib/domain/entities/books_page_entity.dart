@@ -35,14 +35,12 @@ class BooksPage extends Equatable{
     books: [],
     searchQuery: null,
   );
-  BooksPage copyWith({BooksPage? oldBooksPage}) {
-    if(oldBooksPage == null || oldBooksPage.searchQuery != searchQuery) {
-      return this;
-    }
+  BooksPage copyWith({BooksPage? oldBooksPage,int? nextPage}) {
+
     return BooksPage(
       totalCount: totalCount,
-      nextPage: nextPage,
-      books: [...oldBooksPage.books, ...books],
+      nextPage: nextPage ?? nextPage,
+      books: [...oldBooksPage?.books ?? [], ...books],
       searchQuery: searchQuery
     );
   }

@@ -7,5 +7,7 @@ abstract class NetworkService{
   Future<Either<Failure,ApiResponse>> get({
     required String path,
     Map<String, dynamic>? queryParameters,
+    String? cancelKey,
   });
+  void cancelRequest(String key);
 }

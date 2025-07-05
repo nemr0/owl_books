@@ -6,8 +6,9 @@ import '../../core/failures/failure.dart';
 import '../entities/books_page_entity.dart';
 
 abstract class BooksPageRepository{
-  Future<Either<Failure,BooksPage>> getBooksPage({
+  Future<Either<Failure,BooksPage?>> getBooksPage({
     required int? page,
     String? searchQuery,
+    required bool cancelOnly,
   });
 }

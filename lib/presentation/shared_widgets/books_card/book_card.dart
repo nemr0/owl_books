@@ -34,7 +34,7 @@ class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: widget.book.id.toString(),
+      tag: widget.book.id == 0 ? UniqueKey().toString() : widget.book.id.toString(),
       child: GestureDetector(
         onTap: widget.onBookTap == null || widget.book == Book.empty ||
             widget.loading || pressed == true ? null : ()  async {

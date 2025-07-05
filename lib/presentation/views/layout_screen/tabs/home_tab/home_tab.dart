@@ -8,7 +8,7 @@ import '../../../../../core/enums/netwrok_status.dart';
 import '../../../../../core/router/routes.dart';
 import '../../../../../domain/entities/books_page_entity.dart';
 import '../../../../managers/get_books_cubit/get_books_cubit.dart';
-import '../../../../shared_widgets/books_page/books_page.dart';
+import '../../../../shared_widgets/books_page/books_page_screen.dart';
 import '../../../../shared_widgets/error_widgets/error_notifications.dart';
 import '../../../../shared_widgets/error_widgets/network_error_widget.dart';
 import '../../../../shared_widgets/error_widgets/server_error_widget.dart';
@@ -70,7 +70,7 @@ class _HomeTabState extends State<HomeTab> {
       if(state.isServerError ) return  ServerErrorWidget(onRefresh: onRefresh,);
 
       final booksPage = context.watch<GetBooksCubit>().currentBooksPage;
-      return BooksPageScrollView(
+      return BooksPageScreen(
         controller: controller,
         loading: state.isLoading || state.isInitial,
         paginating: state.isPaginating,

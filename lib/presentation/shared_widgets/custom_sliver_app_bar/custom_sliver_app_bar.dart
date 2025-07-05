@@ -2,9 +2,11 @@
 import 'package:flutter/cupertino.dart' show CupertinoButton, CupertinoIcons;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/generated/assets.gen.dart';
+import '../../../core/router/routes.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   const CustomSliverAppBar({super.key, required this.onScrollUp});
@@ -38,7 +40,7 @@ class CustomSliverAppBar extends StatelessWidget {
 
                 child:  Icon(Icons.search,color: getForegroundColor(context.colorScheme, collapsed),size: 26,),
                 onPressed: () {
-                  // TODO: handle search tap
+                  context.push(Routes.search);
                 },
               ),
             ],
