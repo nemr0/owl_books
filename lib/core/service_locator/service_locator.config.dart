@@ -20,32 +20,34 @@ import 'package:owl_books/domain/usecases/search_books_page_usecase.dart'
     as _i735;
 import 'package:owl_books/presentation/managers/get_books_cubit/get_books_cubit.dart'
     as _i454;
+import 'package:owl_books/presentation/managers/search_books_cubit/search_books_cubit.dart'
+    as _i811;
 import 'package:owl_books/presentation/shared_widgets/error_widgets/error_notifications.dart'
-    as _i350;
+    as _i532;
 
 extension GetItInjectableX on _i174.GetIt {
-  // initializes the registration of main-scope dependencies inside of GetIt
+// initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    gh.lazySingleton<_i350.ErrorNotification>(
-      () => _i350.ErrorNotification(),
+    final gh = _i526.GetItHelper(
+      this,
+      environment,
+      environmentFilter,
     );
+    gh.lazySingleton<_i532.ErrorNotification>(() => _i532.ErrorNotification());
     gh.lazySingleton<_i503.NetworkService>(() => _i789.DioNetworkService());
     gh.lazySingleton<_i179.BooksPageRepository>(
-      () => _i57.BooksPageRepoImpl(gh<_i503.NetworkService>()),
-    );
+        () => _i57.BooksPageRepoImpl(gh<_i503.NetworkService>()));
     gh.lazySingleton<_i735.SearchBooksPageUseCase>(
-      () => _i735.SearchBooksPageUseCase(gh<_i179.BooksPageRepository>()),
-    );
+        () => _i735.SearchBooksPageUseCase(gh<_i179.BooksPageRepository>()));
     gh.lazySingleton<_i722.GetBooksPageUseCase>(
-      () => _i722.GetBooksPageUseCase(gh<_i179.BooksPageRepository>()),
-    );
+        () => _i722.GetBooksPageUseCase(gh<_i179.BooksPageRepository>()));
+    gh.factory<_i811.SearchBooksCubit>(
+        () => _i811.SearchBooksCubit(gh<_i735.SearchBooksPageUseCase>()));
     gh.factory<_i454.GetBooksCubit>(
-      () => _i454.GetBooksCubit(gh<_i722.GetBooksPageUseCase>()),
-    );
+        () => _i454.GetBooksCubit(gh<_i722.GetBooksPageUseCase>()));
     return this;
   }
 }

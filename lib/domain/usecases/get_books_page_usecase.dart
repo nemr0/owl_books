@@ -8,7 +8,7 @@ import '../entities/books_page_entity.dart';
 import '../repos/books_page_repo.dart';
 
 @lazySingleton
-class GetBooksPageUseCase extends UseCase<BooksPage, int?> {
+class GetBooksPageUseCase extends UseCase<BooksPage?, int?> {
   static GetBooksPageUseCase get instance =>
       ServiceLocator.get<GetBooksPageUseCase>();
   final BooksPageRepository _repository;
@@ -16,7 +16,7 @@ class GetBooksPageUseCase extends UseCase<BooksPage, int?> {
   GetBooksPageUseCase(this._repository);
 
   @override
-  Future<Either<Failure, BooksPage>> call(int? page) async {
-    return await _repository.getBooksPage(page: page);
+  Future<Either<Failure, BooksPage?>> call(int? page) async {
+    return await _repository.getBooksPage(page: page, cancelOnly: false);
   }
 }

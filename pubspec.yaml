@@ -26,6 +26,7 @@ dependencies:
   cached_network_image: ^3.4.1
   toastification: ^3.0.3
   animated_read_more_text: ^0.0.6
+  pretty_dio_logger: ^1.4.0
 
 
 

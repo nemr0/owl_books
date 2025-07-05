@@ -10,8 +10,8 @@ import '../books_card/book_card.dart';
 /// shared between the home page, saved page and search page.
 /// used for loading, paginating and displaying books.
 ///
-class BooksPageGridViewSliver extends StatelessWidget {
-  const BooksPageGridViewSliver({
+class SliverBooksPageGridView extends StatelessWidget {
+  const SliverBooksPageGridView({
     super.key,
      this.booksPage = BooksPage.empty,
     required this.loading,

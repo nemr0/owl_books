@@ -8,11 +8,15 @@ import '../../../../../core/enums/netwrok_status.dart';
 import '../../../../../core/router/routes.dart';
 import '../../../../../domain/entities/books_page_entity.dart';
 import '../../../../managers/get_books_cubit/get_books_cubit.dart';
-import '../../../../shared_widgets/books_page/books_page.dart';
+import '../../../../shared_widgets/books_page/books_page_screen.dart';
 import '../../../../shared_widgets/error_widgets/error_notifications.dart';
 import '../../../../shared_widgets/error_widgets/network_error_widget.dart';
 import '../../../../shared_widgets/error_widgets/server_error_widget.dart';
 
+/// The main tab displaying a paginated list of books.
+///
+/// Handles infinite scrolling, pull-to-refresh, and error states.
+/// Integrates with [GetBooksCubit] for state management.
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
@@ -21,12 +25,14 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  /// Controller for the scrollable book list.
   late final ScrollController controller;
 
   @override
   void initState() {
     controller = ScrollController();
     controller.addListener(edgeListener);
+    // Fetch initial page of books.
     context.read<GetBooksCubit>().getBooksPageInitial();
     super.initState();
   }
@@ -38,8 +44,10 @@ class _HomeTabState extends State<HomeTab> {
     super.dispose();
   }
 
+  /// Timer for debouncing pagination requests.
   Timer? _debounce;
 
+  /// Listens for scroll events to trigger pagination when near the bottom.
   void edgeListener() {
     if (controller.offset >= controller.position.maxScrollExtent - 400 && _debounce == null) {
 
@@ -51,6 +59,7 @@ class _HomeTabState extends State<HomeTab> {
       });
     }
   }
+  /// Refreshes the book list by fetching the initial page.
   Future<void> onRefresh() async {
     await context.read<GetBooksCubit>().getBooksPageInitial(true);
   }
@@ -70,7 +79,7 @@ class _HomeTabState extends State<HomeTab> {
       if(state.isServerError ) return  ServerErrorWidget(onRefresh: onRefresh,);
 
       final booksPage = context.watch<GetBooksCubit>().currentBooksPage;
-      return BooksPageScrollView(
+      return BooksPageScreen(
         controller: controller,
         loading: state.isLoading || state.isInitial,
         paginating: state.isPaginating,

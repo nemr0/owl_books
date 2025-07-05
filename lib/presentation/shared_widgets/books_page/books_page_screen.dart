@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/typedef/typedefs.dart';
 import '../../../domain/entities/books_page_entity.dart';
-import '../books_page_gridview/books_page_gridview.dart';
-import '../custom_sliver_app_bar/custom_sliver_app_bar.dart';
+import '../sliver_books_page_gridview/sliver_books_page_gridview.dart';
+import '../sliver_custom_app_bar/sliver_custom_app_bar.dart';
+
 /// A widget that displays a paginated grid view of books.
 /// This widget is used in the home tab, saved tab, and search tab.
 /// It handles loading, pagination, refresh, and book selection.
-class BooksPageScrollView extends StatelessWidget {
-  const BooksPageScrollView({
+class BooksPageScreen extends StatelessWidget {
+  const BooksPageScreen({
     super.key,
     required this.loading,
     required this.paginating,
@@ -68,12 +69,12 @@ class BooksPageScrollView extends StatelessWidget {
         onRefresh: onRefresh,
       ),
         // 1) This adapter sits right under the AppBar…
-        CustomSliverAppBar(onScrollUp: (){
+        SliverCustomAppBar(onScrollUp: (){
           controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
         },),
 
 
-        BooksPageGridViewSliver(
+        SliverBooksPageGridView(
           booksPage: booksPage,
           loading: loading,
           paginating: paginating,
