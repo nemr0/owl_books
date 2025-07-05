@@ -52,7 +52,7 @@ class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
       listenWhen: (_,state)=>state.isInitial,
       listener: (BuildContext context, state) {
         if(state.isInitial){
-          _debounce?.cancel();
+          if (_debounce?.isActive ?? false) _debounce!.cancel();
           controller.clear();
         }
       },
