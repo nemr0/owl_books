@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/extensions/context_extension.dart';
-
+/// A sliver widget that displays a centered text message.
 class SliverCenteredText extends StatelessWidget {
   const SliverCenteredText({super.key, required this.text});
   final String text;

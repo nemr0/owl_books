@@ -8,8 +8,8 @@ import '../../../core/extensions/context_extension.dart';
 import '../../../core/generated/assets.gen.dart';
 import '../../../core/router/routes.dart';
 
-class CustomSliverAppBar extends StatelessWidget {
-  const CustomSliverAppBar({super.key, required this.onScrollUp});
+class SliverCustomAppBar extends StatelessWidget {
+  const SliverCustomAppBar({super.key, required this.onScrollUp});
   final VoidCallback onScrollUp;
   Color getBackgroundColor(ColorScheme colorScheme, bool collapsed) {
 

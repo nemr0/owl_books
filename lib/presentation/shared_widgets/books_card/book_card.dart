@@ -6,7 +6,16 @@ import '../../../core/typedef/typedefs.dart';
 import '../../../domain/entities/book_entity.dart';
 import '../image_from_network_widget/image_from_network_widget.dart';
 
+/// A card widget that displays a book cover image and handles tap interactions.
+///
+/// Shows a loading skeleton when [loading] is true. Tapping the card triggers [onBookTap]
+/// if provided, and animates the card scale for feedback.
 class BookCard extends StatefulWidget {
+  /// Creates a [BookCard].
+  ///
+  /// [book] is required. [onBookTap] is called when the card is tapped.
+  /// [loading] shows a skeleton placeholder if true.
+  /// [boxFit] controls how the image is fitted inside the card.
   const BookCard({
     super.key,
     this.onBookTap,
@@ -14,9 +23,16 @@ class BookCard extends StatefulWidget {
     this.loading = false,  this.boxFit = BoxFit.contain,
   });
 
+  /// Callback when the book card is tapped.
   final OnBookTap? onBookTap;
+
+  /// The book entity to display.
   final Book book;
+
+  /// Whether to show a loading skeleton.
   final bool loading;
+
+  /// How to inscribe the image into the space allocated.
   final BoxFit boxFit;
 
   @override
@@ -24,13 +40,18 @@ class BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<BookCard> {
+  /// Duration for the scale animation on tap.
   static const _scaleDuration = Duration(milliseconds: 200);
+
+  /// Whether the card is currently pressed (animating).
   late bool pressed;
+
   @override
   void initState() {
    pressed = false;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -75,5 +96,3 @@ class _BookCardState extends State<BookCard> {
     );
   }
 }
-
-

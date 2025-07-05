@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+/// A class that defines the color palette for the application.
 class AppColors {
   static const Color primary = Color(0xFF614f33);
   static const Color secondary = Color(0xFFe2ed7d);

@@ -6,7 +6,7 @@ import 'colors.dart';
 
 part 'text_theme.dart';
 
-
+/// A singleton class that provides the app's theme configuration.
 class AppTheme {
   static TextTheme textTheme = _textTheme(
     fontFamily: GoogleFonts.robotoFlex().fontFamily!,

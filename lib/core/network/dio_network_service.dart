@@ -1,13 +1,10 @@
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../failures/cancelled_failure.dart';
 import '../failures/failure.dart';
-import '../failures/network_failure.dart';
 import '../failures/server_failure.dart';
 import '../models/api_response.dart';
 import 'endpoints.dart';
@@ -22,21 +19,24 @@ class DioNetworkService implements NetworkService {
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
     ),
-  )..interceptors.add(PrettyDioLogger(requestBody: true,responseBody: false));
-  final Map<String,CancelToken> _cancelTokens = {};
+  )..interceptors.add(PrettyDioLogger(requestBody: true, responseBody: false));
+  final Map<String, CancelToken> _cancelTokens = {};
+
   _addCancelKey(String? key) {
-    if(key == null) return;
+    if (key == null) return;
     if (_cancelTokens.containsKey(key)) {
       _cancelTokens[key]?.cancel();
     }
     _cancelTokens[key] = CancelToken();
   }
+
   _removeCancelKey(String? key) {
-    if(key == null) return;
+    if (key == null) return;
     if (_cancelTokens.containsKey(key)) {
       _cancelTokens.remove(key);
     }
   }
+
   @override
   Future<Either<Failure, ApiResponse>> get({
     required String path,
@@ -45,7 +45,9 @@ class DioNetworkService implements NetworkService {
   }) async {
     try {
       _addCancelKey(cancelKey);
-      final res = await _dio.get(path, queryParameters: queryParameters,cancelToken: _cancelTokens[cancelKey]);
+      final res = await _dio.get(path,
+          queryParameters: queryParameters,
+          cancelToken: _cancelTokens[cancelKey]);
       _removeCancelKey(cancelKey);
       if (res.statusCode == 200) {
         return Right(ApiResponse.fromDio(res));
@@ -60,19 +62,7 @@ class DioNetworkService implements NetworkService {
     } catch (e, s) {
       _removeCancelKey(cancelKey);
       if (e is DioException) {
-        if (e.error is SocketException) {
-          return Left(NetworkFailure(stackTrace: e.stackTrace));
-        } else if(e.type == DioExceptionType.cancel){
-          return const Left(CancelledFailure());
-        }else {
-          return Left(
-            ServerFailure(
-              statusCode: e.response?.statusCode,
-              response: ApiResponse.fromDio(e.response),
-              stackTrace: e.stackTrace,
-            ),
-          );
-        }
+       return Left(Failure.fromDioException(e));
       } else {
         return Left(ServerFailure(stackTrace: s));
       }
@@ -82,7 +72,7 @@ class DioNetworkService implements NetworkService {
   @override
   cancelRequest(String key) {
     final cancelToken = _cancelTokens[key];
-    if(cancelToken == null || cancelToken.isCancelled) return;
+    if (cancelToken == null || cancelToken.isCancelled) return;
     cancelToken.cancel();
   }
 }

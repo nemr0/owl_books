@@ -14,6 +14,7 @@ import '../../shared_widgets/sliver_books_page_gridview/sliver_books_page_gridvi
 import '../../shared_widgets/error_widgets/error_notifications.dart';
 import 'widgets/sliver_centered_text.dart';
 import 'widgets/sliver_floating_text_field.dart';
+import 'widgets/sliver_search_close_button.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -32,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
     controller = ScrollController()..addListener(edgeListener);
     super.initState();
   }
-
+/// Listens to the scroll controller to detect when the user has scrolled down
   void edgeListener() {
     if(controller.offset > 100 && !scrolledDown) {
       setState(() {
@@ -98,21 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
           controller: controller,
           physics: const ClampingScrollPhysics(),
           slivers: [
-            PinnedHeaderSliver(
-              child: SafeArea(
-                bottom: false,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CupertinoButton.filled(
-                        padding: const EdgeInsets.all(12),
-                        child: const Icon(CupertinoIcons.clear),
-                        onPressed: () => context.pop()),
-                  ),
-                ),
-              ),
-            ),
+            const SliverSearchCloseButton(),
             const SliverFloatingTextField(),
             BlocBuilder<SearchBooksCubit, DataStatus>(
                 builder: (context, state) {

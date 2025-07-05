@@ -8,6 +8,11 @@ import '../../../../core/enums/netwrok_status.dart';
 import '../../../../core/extensions/context_extension.dart';
 import '../../../managers/search_books_cubit/search_books_cubit.dart';
 
+/// A sliver widget that displays a floating search text field with debounce functionality.
+///
+/// This widget is intended to be used in a scrollable area (such as a CustomScrollView)
+/// and provides a search bar that floats and animates its padding based on scroll offset.
+/// It integrates with [SearchBooksCubit] to perform debounced search queries.
 class SliverFloatingTextField extends StatefulWidget {
   const SliverFloatingTextField({super.key});
 
@@ -16,10 +21,20 @@ class SliverFloatingTextField extends StatefulWidget {
       _SliverFloatingTextFieldState();
 }
 
+/// State for [SliverFloatingTextField].
+///
+/// Handles the text controller, debounce logic, and UI updates based on the search state.
 class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
+  /// Timer used for debouncing search input.
   Timer? _debounce;
+
+  /// Controller for the search text field.
   late final TextEditingController controller;
+
+  /// Tracks whether the text field is empty.
   late bool isEmpty;
+
+  /// Listener to update [isEmpty] state when the text changes.
   listener(){
     if(controller.text.isEmpty && !isEmpty){
       setState(() {
@@ -31,12 +46,14 @@ class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
       });
     }
   }
+
   @override
   void initState() {
     isEmpty = true;
     controller = TextEditingController()..addListener(listener);
     super.initState();
   }
+
   @override
   void dispose() {
     controller.removeListener(listener);
@@ -49,6 +66,7 @@ class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
     return BlocListener<SearchBooksCubit,DataStatus>(
+      // Only listen when state is initial or success.
       listenWhen: (_,state)=>state.isInitial || state.isSuccess,
       listener: (BuildContext context, state) {
         if(state.isInitial){
@@ -74,6 +92,7 @@ class _SliverFloatingTextFieldState extends State<SliverFloatingTextField> {
                 onChanged: (value) async {
                    await context.read<SearchBooksCubit>().cancel();
                   if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  // Debounce search input by 700ms.
                   _debounce = Timer(const Duration(milliseconds: 700), () {
                     final cubit = context.read<SearchBooksCubit>();
                     if (value.isNotEmpty) {

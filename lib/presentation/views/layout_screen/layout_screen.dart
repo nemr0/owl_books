@@ -7,13 +7,27 @@ import '../../../core/router/routes.dart';
 import 'tabs/home_tab/home_tab.dart';
 import 'tabs/saved_tab/saved_tab.dart';
 
+/// The main layout screen for the app, providing navigation between tabs.
+///
+/// Displays a custom bottom navigation bar and manages tab switching
+/// between [HomeTab] and [SavedTab] using an [IndexedStack].
 class LayoutScreen extends StatelessWidget {
+  /// Creates a [LayoutScreen] with the given tab [index] selected.
   const LayoutScreen({super.key, required this.index});
+
+  /// The currently selected tab index.
   final int index;
+
+  /// Maps route locations to their corresponding tab indices.
   static const locationToIndex = {
     Routes.home: 0,
     Routes.saved: 1
   };
+
+  /// Builds the custom bottom navigation bar.
+  ///
+  /// Highlights the selected tab and navigates to the appropriate route
+  /// when a tab is pressed.
   Widget _buildNavigationBar(BuildContext context, int index) {
     final isFirstSelected = index == 0;
     return SizedBox(
